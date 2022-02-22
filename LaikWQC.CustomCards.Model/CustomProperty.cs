@@ -50,6 +50,11 @@ namespace LaikWQC.CustomCards.Model
         public static ICustomProperty CreateIntProperty(string header, int? value, Action<int?> setter, ConditionType conditionType)
             => new CustomIntProperty(header, value, setter, conditionType);
 
+        public static ICustomProperty CreateDoubleProperty(string header, double? value, Action<double?> setter, Func<double?, bool> correctCondition = null)
+            => new CustomDoubleProperty(header, value, setter, correctCondition);
+        public static ICustomProperty CreateDoubleProperty(string header, double? value, Action<double?> setter, ConditionType conditionType)
+            => new CustomDoubleProperty(header, value, setter, conditionType);
+
         public static ICustomProperty CreateCollectionProperty(ICollectionProperty property)
             => new CustomCollectionPropertyMock(property);
 

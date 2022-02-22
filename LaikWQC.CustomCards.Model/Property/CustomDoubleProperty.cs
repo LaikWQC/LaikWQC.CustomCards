@@ -2,15 +2,15 @@
 
 namespace LaikWQC.CustomCards.Model
 {
-    public class CustomIntProperty : CustomProperty<int?>, ICustomProperty
+    public class CustomDoubleProperty : CustomProperty<double?>, ICustomProperty
     {
-        public CustomIntProperty(string header, int? value, Action<int?> setter, Func<int?, bool> correctCondition = null) : base(header, setter)
+        public CustomDoubleProperty(string header, double? value, Action<double?> setter, Func<double?, bool> correctCondition = null) : base(header, setter)
         {
             Value = value;
             _correctCondition = correctCondition;
         }
 
-        public CustomIntProperty(string header, int? value, Action<int?> setter, ConditionType conditionType) : base(header, setter)
+        public CustomDoubleProperty(string header, double? value, Action<double?> setter, ConditionType conditionType) : base(header, setter)
         {
             Value = value;
             switch (conditionType)

@@ -19,6 +19,8 @@ namespace LaikWQC.CustomCards.Test
             int? nomatterint = null;
             int? thouthousandint = 999;
 
+            double? doubleInRange = null;
+
             var numbers = new List<Number>()
             {
                 new Number() {Name = "один", Value = 1},
@@ -41,28 +43,14 @@ namespace LaikWQC.CustomCards.Test
 
             var enumValue = TestEnum.two;
 
-            //чтобы показать возможности, я продублировал property, но стоит иметь в виду, что дублирующие property перепишут значения (т.о. применится только то, что в экспандере)
             var properies = new List<ICustomProperty>()
-                {
-                    new CustomStringProperty("не пустая строка:", noemptystring, x=>noemptystring = x, ConditionType.NoEmpty),
-                    new CustomStringProperty("любая строка:", nomatterstring, x=>nomatterstring=x, ConditionType.NoCondition),
-                    new CustomStringProperty("длиной не меньше 3 строка:", threenolessstring, x=>threenolessstring=x, x=> x.Length >=3),
-                    new CustomIntProperty("не нулевой инт:", nonullint, x=>nonullint=x, ConditionType.NoEmpty),
-                    new CustomIntProperty("любой инт:", nomatterint, x=>nomatterint=x, ConditionType.NoCondition),
-                    new CustomIntProperty("меньше 1к инт:", thouthousandint, x=>thouthousandint=x, x => x<1000),
-                    new CustomSeparatorProperty(),
-                    new CustomCollectionPropertyMock(new CustomCollectionProperty<Number>("коллекция классов:", number,x=>number = x, numbers, x=>x.Name, ConditionType.NoEmpty, NullElementType.MockElement)),
-                    new CustomCollectionPropertyMock(new CustomCollectionProperty<string>("коллекция строк:", car,x=>car = x, cars, x=>x, ConditionType.NoEmpty, NullElementType.NoElement)),
-                    new CustomCollectionPropertyMock(new CustomCollectionProperty<int>("коллекция интов:", intNumber,x=>intNumber = x, intNumbers, x=>x.ToString(), ConditionType.NoEmpty, NullElementType.NoElement)),
-                    //нельзя добавить сам CustomCollectionProperty, только его Mock
-                    //new CustomCollectionProperty<int>("коллекция интов:", intNumber,x=>intNumber = x, intNumbers, x=>x.ToString(), ConditionType.NoEmpty, NullElementType.NoElement),
-                    CustomEnumProperty<TestEnum>.GetEnumProperty("енумы", enumValue, x=>enumValue = x),
-
-                    CustomProperty.Extra.CreateExpander("Alternative calls", new List<ICustomProperty>()
+            {
+                CustomProperty.CreateStringProperty("не пустая строка:", noemptystring, x=>noemptystring=x, ConditionType.NoEmpty),
+                CustomProperty.CreateStringProperty("любая строка:", nomatterstring, x=>nomatterstring=x, ConditionType.NoCondition),
+                CustomProperty.CreateStringProperty("длиной не меньше 3 строка:", threenolessstring, x=>threenolessstring=x, x=> x.Length >=3),
+                CustomProperty.CreateDoubleProperty("между 100 и 200 double", doubleInRange, x=>doubleInRange = x, x=> x>=100 && x<=200),
+                CustomProperty.Extra.CreateExpander("Экспандер", new List<ICustomProperty>()
                     {
-                        CustomProperty.CreateStringProperty("не пустая строка:", noemptystring, x=>noemptystring=x, ConditionType.NoEmpty),
-                        CustomProperty.CreateStringProperty("любая строка:", nomatterstring, x=>nomatterstring=x, ConditionType.NoCondition),
-                        CustomProperty.CreateStringProperty("длиной не меньше 3 строка:", threenolessstring, x=>threenolessstring=x, x=> x.Length >=3),
                         CustomProperty.CreateIntProperty("не нулевой инт:", nonullint, x=>nonullint=x, ConditionType.NoEmpty),
                         CustomProperty.CreateIntProperty("любой инт:", nomatterint, x=>nomatterint=x, ConditionType.NoCondition),
                         CustomProperty.CreateIntProperty("меньше 1к инт:", thouthousandint, x=>thouthousandint=x, x => x<1000),
