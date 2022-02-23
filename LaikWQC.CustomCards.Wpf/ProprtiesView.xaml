@@ -53,13 +53,7 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 5 0" Text="{Binding Header}"/>
-                                    <ComboBox Grid.Column="1" ItemsSource="{Binding Collection}" SelectedItem="{Binding SelectedItem}">
-                                        <ComboBox.ItemTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding Header}"/>
-                                            </DataTemplate>
-                                        </ComboBox.ItemTemplate>
-                                    </ComboBox>
+                                    <ComboBox Grid.Column="1" ItemsSource="{Binding Collection}" SelectedItem="{Binding SelectedItem}" DisplayMemberPath="Header"/>
                                 </Grid>
                             </DataTemplate>
                             <!--Extra-->
