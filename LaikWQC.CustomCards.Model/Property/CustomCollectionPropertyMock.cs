@@ -41,5 +41,4 @@ namespace LaikWQC.CustomCards.Model
             _property.ConfirmChanges();
         }
     }
-
 }

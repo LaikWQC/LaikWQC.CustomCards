@@ -9,5 +9,4 @@ namespace LaikWQC.CustomCards.Model
         void SetValue(object value);
         int SelectedIndex { get; }
     }
-
 }

@@ -6,9 +6,8 @@ namespace LaikWQC.CustomCards.Model
 {
     public class CustomCollectionProperty<T> : CustomProperty<T>, ICollectionProperty
     {
-        public CustomCollectionProperty(string header, T value, Action<T> setter, ICollection<T> collection, Func<T, string> headerSetter, ConditionType conditionType, NullElementType nullElementType, string nullElementHeader = "<Не выбрано>") : base(header, setter)
+        public CustomCollectionProperty(string header, T value, Action<T> setter, ICollection<T> collection, Func<T, string> headerSetter, ConditionType conditionType, NullElementType nullElementType, string nullElementHeader = "<Не выбрано>") : base(header, value, setter)
         {
-            Value = value;
             switch (conditionType)
             {
                 case ConditionType.NoCondition:
@@ -57,5 +56,4 @@ namespace LaikWQC.CustomCards.Model
 
         public int SelectedIndex => _selectedItemIndex;
     }
-
 }

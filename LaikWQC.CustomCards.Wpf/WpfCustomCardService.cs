@@ -6,21 +6,32 @@ namespace LaikWQC.CustomCards.Wpf
 {
     public static class WpfCustomCardService 
     {
-        public static void ShowDialog(CustomCardModel cc, string title, double width, double maxHeight = 800)
+        public static void ShowDialog(CustomCardModel cc, string title, Window owner, double width, double maxHeight = 800)
         {
             var wnd = CreateWindow(cc, title, width, maxHeight);
+            wnd.Owner = owner;
+            wnd.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             wnd.ShowDialog();
         }
+
         public static void Show(CustomCardModel cc, string title, double width, double maxHeight = 800)
         {
             var wnd = CreateWindow(cc, title, width, maxHeight);
+            wnd.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             wnd.Show();
         }
+        public static void Show(CustomCardModel cc, string title, Window owner, double width, double maxHeight = 800)
+        {
+            var wnd = CreateWindow(cc, title, width, maxHeight);
+            wnd.Owner = owner;
+            wnd.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            wnd.Show();
+        }
+
         private static Window CreateWindow(CustomCardModel cc, string title, double width, double maxHeight = 800)
         {
             var wnd = new Window()
             {
-                WindowStartupLocation = WindowStartupLocation.CenterScreen,
                 Title = title,
                 Width = width,
                 MaxHeight = maxHeight,

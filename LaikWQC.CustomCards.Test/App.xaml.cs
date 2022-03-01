@@ -18,8 +18,9 @@ namespace LaikWQC.CustomCards.Wpf
         {
             base.OnStartup(e);
 
-            new MainWindow().Show();
-            TestCard.Test();
+            var wnd = new MainWindow();
+            wnd.Show();
+            TestCard.Test(wnd);
         }
     }
 }

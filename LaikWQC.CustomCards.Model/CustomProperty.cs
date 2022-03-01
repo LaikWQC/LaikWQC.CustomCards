@@ -9,9 +9,28 @@ namespace LaikWQC.CustomCards.Model
         protected Action<T> _setter;
         private readonly IEqualityComparer<T> _equalityComparer;
 
-        public CustomProperty(string header, Action<T> setter, IEqualityComparer<T> equalityComparer = null)
+        public CustomProperty(string header, T value, Action<T> setter, Func<T, bool> correctCondition, IEqualityComparer<T> equalityComparer = null)
+            : this(header, value, setter, equalityComparer)
+        {
+            _correctCondition = correctCondition;
+        }
+        public CustomProperty(string header, T value, Action<T> setter, ConditionType condition, IEqualityComparer<T> equalityComparer = null)
+            :this(header, value, setter, equalityComparer)
+        {
+            switch (condition)
+            {
+                case ConditionType.NoCondition:
+                    _correctCondition = null;
+                    break;
+                case ConditionType.NoEmpty:
+                    _correctCondition = x => !x.Equals(default);
+                    break;
+            }
+        }
+        public CustomProperty(string header, T value, Action<T> setter, IEqualityComparer<T> equalityComparer = null)
         {
             Header = header;
+            _value = value;
             _setter = setter;
             _equalityComparer = equalityComparer ?? EqualityComparer<T>.Default;
         }

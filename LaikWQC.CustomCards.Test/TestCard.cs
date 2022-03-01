@@ -4,12 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using System.Windows;
 
 namespace LaikWQC.CustomCards.Test
 {
     public class TestCard
     {
-        public static void Test()
+        public static void Test(Window owner)
         {
             var noemptystring = "!";
             var nomatterstring = "";
@@ -65,7 +66,7 @@ namespace LaikWQC.CustomCards.Test
             {
                 //колбек после нажатия кнопки "применить" (происходит после применения всех сеттеров)
             });
-            WpfCustomCardService.Show(cc, "Test", 400, 400);
+            WpfCustomCardService.ShowDialog(cc, "Test", owner, 400, 400);
         }
 
         public class Number
