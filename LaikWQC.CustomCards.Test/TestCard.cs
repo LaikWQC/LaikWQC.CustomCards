@@ -20,7 +20,7 @@ namespace LaikWQC.CustomCards.Test
             int? nomatterint = null;
             int? thouthousandint = 999;
 
-            double? doubleInRange = null;
+            double? doubleInRange = 150;
 
             var numbers = new List<Number>()
             {
@@ -44,12 +44,15 @@ namespace LaikWQC.CustomCards.Test
 
             var enumValue = TestEnum.two;
 
+            DateTime? dateValue = DateTime.Now;
+
             var properies = new List<ICustomProperty>()
             {
                 CustomProperty.CreateStringProperty("не пустая строка:", noemptystring, x=>noemptystring=x, ConditionType.NoEmpty),
                 CustomProperty.CreateStringProperty("любая строка:", nomatterstring, x=>nomatterstring=x, ConditionType.NoCondition),
                 CustomProperty.CreateStringProperty("длиной не меньше 3 строка:", threenolessstring, x=>threenolessstring=x, x=> x.Length >=3),
                 CustomProperty.CreateDoubleProperty("между 100 и 200 double", doubleInRange, x=>doubleInRange = x, x=> x>=100 && x<=200),
+                CustomProperty.CreateDateProperty("дата", dateValue, x=>dateValue = x, ConditionType.NoEmpty),
                 CustomProperty.Extra.CreateExpander("Экспандер", new List<ICustomProperty>()
                     {
                         CustomProperty.CreateIntProperty("не нулевой инт:", nonullint, x=>nonullint=x, ConditionType.NoEmpty),

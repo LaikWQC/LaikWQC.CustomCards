@@ -74,6 +74,11 @@ namespace LaikWQC.CustomCards.Model
         public static ICustomProperty CreateDoubleProperty(string header, double? value, Action<double?> setter, ConditionType conditionType)
             => new CustomDoubleProperty(header, value, setter, conditionType);
 
+        public static ICustomProperty CreateTimeProperty(string header, DateTime? value, Action<DateTime?> setter, Func<DateTime?, bool> correctCondition = null)
+            => new CustomDateProperty(header, value, setter, correctCondition);
+        public static ICustomProperty CreateDateProperty(string header, DateTime? value, Action<DateTime?> setter, ConditionType conditionType)
+            => new CustomDateProperty(header, value, setter, conditionType);
+
         public static ICustomProperty CreateCollectionProperty(ICollectionProperty property)
             => new CustomCollectionPropertyMock(property);
 
