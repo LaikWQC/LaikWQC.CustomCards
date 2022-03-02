@@ -43,7 +43,7 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 5 0" Text="{Binding Header}"/>
-                                    <TextBox Grid.Column="1" Text="{Binding Value, Converter={StaticResource NullableConverter}, UpdateSourceTrigger=PropertyChanged, Delay=200}"/>
+                                    <TextBox Grid.Column="1" Text="{Binding ValueStr, Converter={StaticResource NullableConverter}, UpdateSourceTrigger=PropertyChanged}"/>
                                 </Grid>
                             </DataTemplate>
                             <DataTemplate DataType="{x:Type customcards:CustomDateProperty}">
