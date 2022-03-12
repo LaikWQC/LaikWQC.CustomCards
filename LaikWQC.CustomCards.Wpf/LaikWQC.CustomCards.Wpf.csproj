@@ -4,6 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
     <Authors>LaikWQC</Authors>
+    <PackageProjectUrl>https://github.com/LaikWQC/LaikWQC.CustomCards</PackageProjectUrl>
+    <Version>1.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
