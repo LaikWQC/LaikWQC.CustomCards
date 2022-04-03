@@ -1,9 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFrameworks>netcoreapp3.1;net46 </TargetFrameworks>
     <Authors>LaikWQC</Authors>
     <PackageProjectUrl>https://github.com/LaikWQC/LaikWQC.CustomCards</PackageProjectUrl>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
 </Project>
