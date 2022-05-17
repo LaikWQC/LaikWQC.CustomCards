@@ -28,7 +28,7 @@ namespace LaikWQC.CustomCards.Model
                 var separator = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
                 var correctValue = value.Replace(',', separator).Replace('.', separator); //меняем запятые и точки на сепаратор из нашей культуры
                 if (correctValue.Count(x => x == separator) > 1) return; //не позволяем создать 2 сепаратора
-                if (correctValue.StartsWith(separator)) correctValue = "0" + correctValue; //если начинается с сепаратора, то добавляем 0 в начало
+                if (correctValue.StartsWith(separator.ToString())) correctValue = "0" + correctValue; //если начинается с сепаратора, то добавляем 0 в начало
 
                 if (double.TryParse(correctValue, NumberStyles.Any, CultureInfo.CurrentCulture, out var newValue))
                 {

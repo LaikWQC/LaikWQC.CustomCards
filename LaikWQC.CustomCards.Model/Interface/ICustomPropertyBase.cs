@@ -7,6 +7,6 @@ namespace LaikWQC.CustomCards.Model
         string Header { get; }
         bool IsCorrected { get; }
         void ConfirmChanges();
-        public event Action ValueChanged;
+        event Action ValueChanged;
     }
 }
