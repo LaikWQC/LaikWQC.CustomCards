@@ -2,6 +2,9 @@
 
   <PropertyGroup>
 	  <TargetFrameworks>netstandard2.1;net46 </TargetFrameworks>
+	  <Authors>LaikWQC</Authors>
+	  <PackageProjectUrl>https://github.com/LaikWQC/LaikWQC.CustomCards</PackageProjectUrl>
+	  <Version>1.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
