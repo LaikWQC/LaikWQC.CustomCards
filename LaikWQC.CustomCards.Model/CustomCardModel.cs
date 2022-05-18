@@ -26,8 +26,10 @@ namespace LaikWQC.CustomCards.Model
         private readonly MyCommand _cmdConfirm;
         public ICommand CmdConfirm => _cmdConfirm;
 
+        public bool IsConfirmed { get; private set; } = false;
         private void Confirm()
         {
+            IsConfirmed = true;
             foreach (var property in Properties)
                 property.ConfirmChanges();
             Close();
@@ -53,7 +55,7 @@ namespace LaikWQC.CustomCards.Model
 
         public string ConfirmButtonText { get; set; } = "Ok";
         public string CancelButtonText { get; set; } = "Cancel";
-        public Action ConfirmCallback { get; set; }
+        public event Action ConfirmCallback;
     }
 
     public static class CustomCardModelFluent
@@ -70,7 +72,7 @@ namespace LaikWQC.CustomCards.Model
         }
         public static CustomCardModel SetConfirmCallback(this CustomCardModel target, Action callback)
         {
-            target.ConfirmCallback = callback;
+            target.ConfirmCallback += callback;
             return target;
         }
     }
