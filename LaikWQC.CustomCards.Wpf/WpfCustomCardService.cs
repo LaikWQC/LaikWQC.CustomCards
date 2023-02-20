@@ -6,29 +6,19 @@ namespace LaikWQC.CustomCards.Wpf
 {
     public static class WpfCustomCardService 
     {
-        public static void ShowDialog(CustomCardModel cc, string title, Window owner, double width, double maxHeight = 800)
+        public static void ShowDialog(CustomCardModel cc, string title, Window owner = null, double width = 400, double maxHeight = double.PositiveInfinity)
         {
-            var wnd = CreateWindow(cc, title, width, maxHeight);
-            wnd.Owner = owner;
-            wnd.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            var wnd = CreateWindow(cc, owner, title, width, maxHeight);            
             wnd.ShowDialog();
         }
 
-        public static void Show(CustomCardModel cc, string title, double width, double maxHeight = 800)
+        public static void Show(CustomCardModel cc, string title, Window owner = null, double width = 400, double maxHeight = double.PositiveInfinity)
         {
-            var wnd = CreateWindow(cc, title, width, maxHeight);
-            wnd.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            wnd.Show();
-        }
-        public static void Show(CustomCardModel cc, string title, Window owner, double width, double maxHeight = 800)
-        {
-            var wnd = CreateWindow(cc, title, width, maxHeight);
-            wnd.Owner = owner;
-            wnd.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            var wnd = CreateWindow(cc, owner, title, width, maxHeight);
             wnd.Show();
         }
 
-        private static Window CreateWindow(CustomCardModel cc, string title, double width, double maxHeight = 800)
+        private static Window CreateWindow(CustomCardModel cc, Window owner, string title, double width, double maxHeight)
         {
             var wnd = new Window()
             {
@@ -39,9 +29,11 @@ namespace LaikWQC.CustomCards.Wpf
                 ResizeMode = ResizeMode.NoResize,
                 SizeToContent = SizeToContent.Height
             };
+            wnd.Owner = owner;
+            wnd.WindowStartupLocation = owner == null ? WindowStartupLocation.CenterScreen : WindowStartupLocation.CenterOwner;
             wnd.Content = new CustomCardView();
             wnd.DataContext = cc;
-            cc.OnClose += () => wnd.Close();
+            cc.CloseCommand = () => wnd.Close();
             return wnd;
         }
     }

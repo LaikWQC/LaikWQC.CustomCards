@@ -65,11 +65,17 @@ namespace LaikWQC.CustomCards.Test
                         CustomProperty.CreateEnumProperty("енумы", enumValue, x=>enumValue = x )
                     })
             };
-            var cc = new CustomCardModel(properies).SetConfirmButtonText("Применить").SetCancelButtonText("Отмена").SetConfirmCallback(()=> 
-            {
-                //колбек после нажатия кнопки "применить" (происходит после применения всех сеттеров)
-            });
-            WpfCustomCardService.ShowDialog(cc, "Test", owner, 400, 400);
+            var cc = new CustomCardModel(properies).SetConfirmButtonText("Применить").SetCancelButtonText("Отмена")
+                .SetConfirmCallback(()=> 
+                {
+                    //колбек после нажатия кнопки "применить" (происходит после применения всех сеттеров)
+                })
+                .SetCancelCallback(()=>
+                {
+                    //колбек после нажатия кнопки "отмена"
+                });
+            var result = cc.IsConfirmed; //колбеки хороши когда показываешь окно, но в диалоге можно воспользоваться и этим свойством
+            WpfCustomCardService.ShowDialog(cc, "Test", owner, 400, 200);
         }
 
         public class Number
