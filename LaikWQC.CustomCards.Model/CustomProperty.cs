@@ -86,7 +86,7 @@ namespace LaikWQC.CustomCards.Model
         /// Создает комбобокс с null элементом (если T не может быть null, то заглушка не создается!)
         /// </summary>
         /// <param name="headerSetter">Как отображать элементы</param>
-        /// <param name="conditionType">Можно запретить выбрать null елемент</param>
+        /// <param name="conditionType">Можно запретить выбирать null елемент</param>
         /// <param name="nullElementHeader">Заголовок null елемента</param>
         /// <returns></returns>
         public static ICustomProperty CreateCollectionProperty<T>(string header, T value, Action<T> setter, ICollection<T> collection, Func<T, string> headerSetter, ConditionType conditionType, string nullElementHeader = "<Не выбрано>")
@@ -100,14 +100,28 @@ namespace LaikWQC.CustomCards.Model
         public static ICustomProperty CreateCollectionProperty<T>(string header, T value, Action<T> setter, ICollection<T> collection, Func<T, string> headerSetter)
             => new CustomCollectionPropertyMock(new CustomCollectionProperty<T>(header, value, setter, collection, headerSetter, ConditionType.NoCondition, NullElementType.NoElement));
 
+        /// <summary>
+        /// Создает комбобокс из всех возможных значений енума value. 
+        /// Наименование значений берутся из атрибута Display.Name
+        /// </summary>
         public static ICustomProperty CreateEnumProperty<T>(string header, T value, Action<T> setter) where T: Enum
             => CustomEnumProperty<T>.GetEnumProperty(header, value, setter);
 
+        /// <summary>
+        /// Создает комбобокс из всех возможных значений енума value.
+        /// </summary>
+        /// <param name="headerSetter">Как отображать элементы</param>
+        public static ICustomProperty CreateEnumProperty<T>(string header, T value, Func<T,string> headerSetter, Action<T> setter) where T : Enum
+            => CustomEnumProperty<T>.GetEnumProperty(header, value, headerSetter, setter);
+
         public static class Extra
         {
+            /// <summary>
+            /// Вставляет разделитель в виде пустой строки
+            /// </summary>
             public static ICustomProperty CreateSeparator() => new CustomSeparatorProperty();
-            public static ICustomProperty CreateExpander(string header, ICollection<ICustomProperty> properties)
-                => new CustomExpanderProperty(header, properties);
+            public static ICustomProperty CreateExpander(string header, bool isExpanded, ICollection<ICustomProperty> properties)
+                => new CustomExpanderProperty(header, isExpanded, properties);
         }
     }
 }

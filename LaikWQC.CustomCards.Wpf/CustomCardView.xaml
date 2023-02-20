@@ -15,8 +15,8 @@
             <local:ProprtiesView DataContext="{Binding Properties}"/>
         </ScrollViewer>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 20 0 10">
-            <Button Content="{Binding ConfirmButtonText}" MinWidth="80" Margin="0 0 10 0" Command="{Binding CmdConfirm}"/>
-            <Button Content="{Binding CancelButtonText}" MinWidth="80" Command="{Binding CmdClose}"/>
+            <Button Content="{Binding ConfirmButtonText}" Padding="2" MinWidth="80" Margin="0 0 10 0" Command="{Binding CmdConfirm}"/>
+            <Button Content="{Binding CancelButtonText}" Padding="2" MinWidth="80" Command="{Binding CmdClose}"/>
         </StackPanel>
     </Grid>
 </UserControl>

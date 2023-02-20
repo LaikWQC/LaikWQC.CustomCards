@@ -6,13 +6,15 @@ namespace LaikWQC.CustomCards.Model
 {
     public class CustomExpanderProperty : ICustomProperty
     {
-        public CustomExpanderProperty(string header, ICollection<ICustomProperty> properties)
+        public CustomExpanderProperty(string header, bool isExpanded, ICollection<ICustomProperty> properties)
         {
             Header = header;
+            IsExpanded = isExpanded;
             Properties = properties ?? new ICustomProperty[0];
         }
 
         public string Header { get; }
+        public bool IsExpanded { get; }
         public ICollection<ICustomProperty> Properties { get; }
 
         public bool IsCorrected => Properties.All(x => x.IsCorrected);
@@ -37,5 +39,4 @@ namespace LaikWQC.CustomCards.Model
                 property.ConfirmChanges();
         }
     }
-
 }

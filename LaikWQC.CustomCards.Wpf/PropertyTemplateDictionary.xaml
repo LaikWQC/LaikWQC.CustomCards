@@ -58,7 +58,7 @@
         <TextBox Visibility="Hidden"/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type customcards:CustomExpanderProperty}">
-        <Expander Header="{Binding Header}">
+        <Expander Header="{Binding Header}" IsExpanded="{Binding IsExpanded, Mode=OneTime}">
             <local:ProprtiesView DataContext="{Binding Properties}"/>
         </Expander>
     </DataTemplate>

@@ -54,7 +54,7 @@ namespace LaikWQC.CustomCards.Test
                 CustomProperty.CreateStringProperty("длиной не меньше 3 строка:", threenolessstring, x=>threenolessstring=x, x=> x.Length >=3),
                 CustomProperty.CreateDoubleProperty("между 100 и 200 double", doubleInRange, x=>doubleInRange = x, x=> x>=100 && x<=200),
                 CustomProperty.CreateDateProperty("дата", dateValue, x=>dateValue = x, ConditionType.NoEmpty),
-                CustomProperty.Extra.CreateExpander("Экспандер", new List<ICustomProperty>()
+                CustomProperty.Extra.CreateExpander("Экспандер", true, new List<ICustomProperty>()
                     {
                         CustomProperty.CreateIntProperty("не нулевой инт:", nonullint, x=>nonullint=x, ConditionType.NoEmpty),
                         CustomProperty.CreateIntProperty("любой инт:", nomatterint, x=>nomatterint=x, ConditionType.NoCondition),
@@ -63,19 +63,20 @@ namespace LaikWQC.CustomCards.Test
                         CustomProperty.CreateCollectionProperty("коллекция классов:", number,x=>number = x, numbers, x=>x.Name, ConditionType.NoEmpty),
                         CustomProperty.CreateCollectionProperty("коллекция строк:", car,x=>car = x, cars, x=>x),
                         CustomProperty.CreateCollectionProperty("коллекция интов:", intNumber,x=>intNumber = x, intNumbers, x=>x.ToString()),
-                        CustomProperty.CreateEnumProperty("енумы", enumValue, x=>enumValue = x )
+                        CustomProperty.CreateEnumProperty("енумы", enumValue, x=>enumValue = x ),
+                        CustomProperty.CreateEnumProperty("енумы", enumValue, x=>$"{x.GetType().Name} {x}", x=>enumValue = x )
                     })
             };
             var cc = new CustomCardModel(properies).SetConfirmButtonText("Применить").SetCancelButtonText("Отмена")
-                .SetConfirmCallback(()=> 
+                .SetConfirmCallback(() =>
                 {
                     //колбек после нажатия кнопки "применить" (происходит после применения всех сеттеров)
                 })
-                .SetCancelCallback(()=>
+                .SetCancelCallback(() =>
                 {
                     //колбек после нажатия кнопки "отмена"
                 });
-            var result = cc.IsConfirmed; //колбеки хороши когда показываешь окно, но в диалоге можно воспользоваться и этим свойством
+            var result = cc.IsConfirmed; //колбеки хороши, когда показываешь окно, но в диалоге можно воспользоваться и этим свойством
             WpfCustomCardService.ShowDialog(cc, "Test", owner);
         }
 
@@ -88,10 +89,11 @@ namespace LaikWQC.CustomCards.Test
         public enum TestEnum
         {
             [Display(Name = "Один")] one,
-            two,
+            [Display(Order = 0)] two,
             [Display(Name = "Три")] three
         }
     }
+
     //Можно создать свою Проперти и добавить в приложение библиотеку, описывающую ее view
     public class TestProperty : CustomProperty<string>, ICustomProperty
     {
