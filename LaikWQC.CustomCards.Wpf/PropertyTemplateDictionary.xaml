@@ -1,0 +1,65 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:customcards="clr-namespace:LaikWQC.CustomCards.Model;assembly=LaikWQC.CustomCards.Model"
+                    xmlns:local="clr-namespace:LaikWQC.CustomCards.Wpf">
+    <local:NullableConverter x:Key="NullableConverter"/>
+    <DataTemplate DataType="{x:Type customcards:CustomStringProperty}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" SharedSizeGroup="HeaderColumn"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 5 0" Text="{Binding Header}"/>
+            <TextBox Grid.Column="1" Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type customcards:CustomIntProperty}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" SharedSizeGroup="HeaderColumn"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 5 0" Text="{Binding Header}"/>
+            <TextBox Grid.Column="1" Text="{Binding Value, Converter={StaticResource NullableConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type customcards:CustomDoubleProperty}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" SharedSizeGroup="HeaderColumn"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 5 0" Text="{Binding Header}"/>
+            <TextBox Grid.Column="1" Text="{Binding ValueStr, Converter={StaticResource NullableConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type customcards:CustomDateProperty}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" SharedSizeGroup="HeaderColumn"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 5 0" Text="{Binding Header}"/>
+            <DatePicker Grid.Column="1" Text="{Binding Value, Converter={StaticResource NullableConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type customcards:CustomCollectionPropertyMock}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" SharedSizeGroup="HeaderColumn"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 5 0" Text="{Binding Header}"/>
+            <ComboBox Grid.Column="1" ItemsSource="{Binding Collection}" SelectedItem="{Binding SelectedItem}" DisplayMemberPath="Header"/>
+        </Grid>
+    </DataTemplate>
+    <!--Extra-->
+    <DataTemplate DataType="{x:Type customcards:CustomSeparatorProperty}">
+        <TextBox Visibility="Hidden"/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type customcards:CustomExpanderProperty}">
+        <Expander Header="{Binding Header}">
+            <local:ProprtiesView DataContext="{Binding Properties}"/>
+        </Expander>
+    </DataTemplate>
+</ResourceDictionary>

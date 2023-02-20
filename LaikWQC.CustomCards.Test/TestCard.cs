@@ -48,6 +48,7 @@ namespace LaikWQC.CustomCards.Test
 
             var properies = new List<ICustomProperty>()
             {
+                new TestProperty("только что добавленная новая Проперти", noemptystring, x=>noemptystring=x, ConditionType.NoEmpty),
                 CustomProperty.CreateStringProperty("не пустая строка:", noemptystring, x=>noemptystring=x, ConditionType.NoEmpty),
                 CustomProperty.CreateStringProperty("любая строка:", nomatterstring, x=>nomatterstring=x, ConditionType.NoCondition),
                 CustomProperty.CreateStringProperty("длиной не меньше 3 строка:", threenolessstring, x=>threenolessstring=x, x=> x.Length >=3),
@@ -75,7 +76,7 @@ namespace LaikWQC.CustomCards.Test
                     //колбек после нажатия кнопки "отмена"
                 });
             var result = cc.IsConfirmed; //колбеки хороши когда показываешь окно, но в диалоге можно воспользоваться и этим свойством
-            WpfCustomCardService.ShowDialog(cc, "Test", owner, 400, 200);
+            WpfCustomCardService.ShowDialog(cc, "Test", owner);
         }
 
         public class Number
@@ -89,6 +90,24 @@ namespace LaikWQC.CustomCards.Test
             [Display(Name = "Один")] one,
             two,
             [Display(Name = "Три")] three
+        }
+    }
+    //Можно создать свою Проперти и добавить в приложение библиотеку, описывающую ее view
+    public class TestProperty : CustomProperty<string>, ICustomProperty
+    {
+        public TestProperty(string header, string value, Action<string> setter, Func<string, bool> correctCondition = null) : base(header, value ?? "", setter, correctCondition) { }
+
+        public TestProperty(string header, string value, Action<string> setter, ConditionType conditionType) : base(header, value ?? "", setter)
+        {
+            switch (conditionType)
+            {
+                case ConditionType.NoCondition:
+                    _correctCondition = null;
+                    break;
+                case ConditionType.NoEmpty:
+                    _correctCondition = x => !string.IsNullOrEmpty(x);
+                    break;
+            }
         }
     }
 }
