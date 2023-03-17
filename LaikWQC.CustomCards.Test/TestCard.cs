@@ -60,14 +60,15 @@ namespace LaikWQC.CustomCards.Test
                 CustomProperty.Extra.CreateExpander("Экспандер", true, new List<ICustomProperty>()
                     {
                         CustomProperty.CreateIntProperty("не нулевой инт:", nonullint, x=>nonullint=x, ConditionType.NoEmpty),
-                        CustomProperty.CreateIntProperty("любой инт:", nomatterint, x=>nomatterint=x, ConditionType.NoCondition),
-                        CustomProperty.CreateIntProperty("меньше 1к инт:", thouthousandint, x=>thouthousandint=x, x => x<1000),
                         CustomProperty.Extra.CreateSeparator(),
-                        CustomProperty.CreateCollectionProperty("коллекция классов:", number,x=>number = x, numbers, x=>x.Name, ConditionType.NoEmpty),
-                        CustomProperty.CreateCollectionProperty("коллекция строк:", car,x=>car = x, cars, x=>x),
                         CustomProperty.CreateCollectionProperty("коллекция интов:", intNumber,x=>intNumber = x, intNumbers, x=>x.ToString()),
-                        CustomProperty.CreateEnumProperty("енумы", enumValue, x=>enumValue = x ),
                         CustomProperty.CreateEnumProperty("енумы", enumValue, x=>$"{x.GetType().Name} {x}", x=>enumValue = x )
+                    }),
+                CustomProperty.Extra.CreateGroup("Группа", new List<ICustomProperty>()
+                    {
+                        CustomProperty.CreateIntProperty("меньше 1к инт:", thouthousandint, x=>thouthousandint=x, x => x<1000),
+                        CustomProperty.CreateCollectionProperty("коллекция классов:", number,x=>number = x, numbers, x=>x.Name, ConditionType.NoEmpty),
+                        CustomProperty.CreateEnumProperty("енумы", enumValue, x=>enumValue = x ),
                     })
             };
             cc = new CustomCardModel(properies).SetConfirmButtonText("Применить").SetCancelButtonText("Отмена")

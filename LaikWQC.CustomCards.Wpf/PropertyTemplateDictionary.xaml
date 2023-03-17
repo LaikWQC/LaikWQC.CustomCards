@@ -62,4 +62,9 @@
             <local:ProprtiesView DataContext="{Binding Properties}"/>
         </Expander>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type customcards:CustomGroupProperty}">
+        <GroupBox Header="{Binding Header}">
+            <local:ProprtiesView DataContext="{Binding Properties}"/>
+        </GroupBox>
+    </DataTemplate>
 </ResourceDictionary>
