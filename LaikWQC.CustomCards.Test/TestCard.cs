@@ -1,10 +1,12 @@
 ﻿using LaikWQC.CustomCards.Model;
 using LaikWQC.CustomCards.Wpf;
+using LaikWQC.Utils.Commands;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Windows;
+using System.Windows.Input;
 
 namespace LaikWQC.CustomCards.Test
 {
@@ -46,9 +48,10 @@ namespace LaikWQC.CustomCards.Test
 
             DateTime? dateValue = DateTime.Now;
 
+            CustomCardModel cc = null;
             var properies = new List<ICustomProperty>()
             {
-                new TestProperty("только что добавленная новая Проперти", noemptystring, x=>noemptystring=x, ConditionType.NoEmpty),
+                new TestProperty(new MyCommand(() => cc?.Reset())),
                 CustomProperty.CreateStringProperty("не пустая строка:", noemptystring, x=>noemptystring=x, ConditionType.NoEmpty),
                 CustomProperty.CreateStringProperty("любая строка:", nomatterstring, x=>nomatterstring=x, ConditionType.NoCondition),
                 CustomProperty.CreateStringProperty("длиной не меньше 3 строка:", threenolessstring, x=>threenolessstring=x, x=> x.Length >=3),
@@ -67,7 +70,7 @@ namespace LaikWQC.CustomCards.Test
                         CustomProperty.CreateEnumProperty("енумы", enumValue, x=>$"{x.GetType().Name} {x}", x=>enumValue = x )
                     })
             };
-            var cc = new CustomCardModel(properies).SetConfirmButtonText("Применить").SetCancelButtonText("Отмена")
+            cc = new CustomCardModel(properies).SetConfirmButtonText("Применить").SetCancelButtonText("Отмена")
                 .SetConfirmCallback(() =>
                 {
                     //колбек после нажатия кнопки "применить" (происходит после применения всех сеттеров)
@@ -76,8 +79,8 @@ namespace LaikWQC.CustomCards.Test
                 {
                     //колбек после нажатия кнопки "отмена"
                 });
-            var result = cc.IsConfirmed; //колбеки хороши, когда показываешь окно, но в диалоге можно воспользоваться и этим свойством
             WpfCustomCardService.ShowDialog(cc, "Test", owner);
+            var result = cc.IsConfirmed; //колбеки хороши, когда показываешь окно, но в диалоге можно воспользоваться и этим свойством
         }
 
         public class Number
@@ -95,21 +98,13 @@ namespace LaikWQC.CustomCards.Test
     }
 
     //Можно создать свою Проперти и добавить в приложение библиотеку, описывающую ее view
-    public class TestProperty : CustomProperty<string>, ICustomProperty
+    public class TestProperty : EmptyProperty
     {
-        public TestProperty(string header, string value, Action<string> setter, Func<string, bool> correctCondition = null) : base(header, value ?? "", setter, correctCondition) { }
-
-        public TestProperty(string header, string value, Action<string> setter, ConditionType conditionType) : base(header, value ?? "", setter)
+        public TestProperty(ICommand cmdReset)
         {
-            switch (conditionType)
-            {
-                case ConditionType.NoCondition:
-                    _correctCondition = null;
-                    break;
-                case ConditionType.NoEmpty:
-                    _correctCondition = x => !string.IsNullOrEmpty(x);
-                    break;
-            }
+            CmdReset = cmdReset;
         }
+
+        public ICommand CmdReset { get; }
     }
 }

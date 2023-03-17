@@ -22,6 +22,7 @@ namespace LaikWQC.CustomCards.Model
         }
 
         public List<ICustomProperty> Properties { get; }
+        public void Reset() => Properties.ForEach(x => x.Reset());
 
         private readonly MyCommand _cmdConfirm;
         public ICommand CmdConfirm => _cmdConfirm;
@@ -32,7 +33,6 @@ namespace LaikWQC.CustomCards.Model
             IsConfirmed = true;
             foreach (var property in Properties)
                 property.ConfirmChanges();
-            Close();
             ConfirmCallback?.Invoke();
         }
 
@@ -48,12 +48,8 @@ namespace LaikWQC.CustomCards.Model
         private void CmdCloseExecute()
         {
             IsConfirmed = false;
-            Close();
             CancelCallback?.Invoke();
         }
-
-        public Action CloseCommand { private get; set; }
-        public void Close() => CloseCommand?.Invoke();
 
         public string ConfirmButtonText { get; set; } = "Ok";
         public string CancelButtonText { get; set; } = "Cancel";
@@ -71,6 +67,12 @@ namespace LaikWQC.CustomCards.Model
         public static CustomCardModel SetCancelButtonText(this CustomCardModel target, string text)
         {
             target.CancelButtonText = text;
+            return target;
+        }
+        public static CustomCardModel SetBothCallback(this CustomCardModel target, Action callback)
+        {
+            target.SetConfirmCallback(callback);
+            target.SetCancelCallback(callback);
             return target;
         }
         public static CustomCardModel SetConfirmCallback(this CustomCardModel target, Action callback)

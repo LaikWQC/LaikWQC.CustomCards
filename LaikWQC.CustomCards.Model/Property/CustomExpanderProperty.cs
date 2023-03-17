@@ -38,5 +38,11 @@ namespace LaikWQC.CustomCards.Model
             foreach (var property in Properties)
                 property.ConfirmChanges();
         }
+
+        public void Reset() 
+        {
+            foreach (var property in Properties)
+                property.Reset();
+        }
     }
 }

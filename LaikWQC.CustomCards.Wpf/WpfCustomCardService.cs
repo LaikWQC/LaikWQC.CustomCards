@@ -33,7 +33,7 @@ namespace LaikWQC.CustomCards.Wpf
             wnd.WindowStartupLocation = owner == null ? WindowStartupLocation.CenterScreen : WindowStartupLocation.CenterOwner;
             wnd.Content = new CustomCardView();
             wnd.DataContext = cc;
-            cc.CloseCommand = () => wnd.Close();
+            cc.SetBothCallback(wnd.Close);
             return wnd;
         }
     }

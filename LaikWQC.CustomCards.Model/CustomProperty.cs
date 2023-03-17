@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace LaikWQC.CustomCards.Model
 {
-    public abstract class CustomProperty<T> : ICustomPropertyBase
+    public abstract class CustomProperty<T> : ICustomPropertyBase, INotifyPropertyChanged
     {
         protected Func<T, bool> _correctCondition;
         protected Action<T> _setter;
         private readonly IEqualityComparer<T> _equalityComparer;
+        private T _initialValue;
 
         public CustomProperty(string header, T value, Action<T> setter, Func<T, bool> correctCondition, IEqualityComparer<T> equalityComparer = null)
             : this(header, value, setter, equalityComparer)
@@ -30,6 +32,7 @@ namespace LaikWQC.CustomCards.Model
         public CustomProperty(string header, T value, Action<T> setter, IEqualityComparer<T> equalityComparer = null)
         {
             Header = header;
+            _initialValue = value;
             _value = value;
             _setter = setter;
             _equalityComparer = equalityComparer ?? EqualityComparer<T>.Default;
@@ -37,9 +40,8 @@ namespace LaikWQC.CustomCards.Model
 
         public string Header { get; }
 
-        private T _value;
-
         public event Action ValueChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public T Value
         {
@@ -49,12 +51,19 @@ namespace LaikWQC.CustomCards.Model
                 if (_equalityComparer.Equals(_value, value)) return;
                 _value = value;
                 ValueChanged?.Invoke();
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Value)));
             }
         }
+        private T _value;
 
         public bool IsCorrected => _correctCondition?.Invoke(_value) ?? true;
 
         public void ConfirmChanges() => _setter?.Invoke(Value);
+
+        public void Reset()
+        {
+            Value = _initialValue;
+        }
     }
 
     public static class CustomProperty

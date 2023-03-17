@@ -2,6 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:LaikWQC.CustomCards.Test">
     <DataTemplate DataType="{x:Type local:TestProperty}">
-        <TextBlock Text="Только что добавленная новая Проперти"/>
+        <Button Content="Reset" Command="{Binding CmdReset}"/>
     </DataTemplate>
 </ResourceDictionary>

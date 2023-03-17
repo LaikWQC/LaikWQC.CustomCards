@@ -13,5 +13,5 @@
             </ResourceDictionary.MergedDictionaries>            
         </ResourceDictionary>
     </UserControl.Resources>
-    <ItemsControl Grid.Row="0" Grid.IsSharedSizeScope="True" ItemsSource="{Binding .}"/>
+    <ItemsControl Grid.IsSharedSizeScope="True" ItemsSource="{Binding .}"/>
 </UserControl>
